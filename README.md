@@ -1,6 +1,6 @@
 # ReactReduxRolodex
 
-A React Redux application that consumes data from the Node/Express 4 API. Users can create, edit, delete, filter and view contacts.
+A React Redux application that consumes data from the ReactReduxRolodexAPI project(Express/Node server layer, and MongoDb storage).  Users can create, edit, delete, filter and view contacts. 
 
 Uses:
 
