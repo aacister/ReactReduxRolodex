@@ -10,3 +10,5 @@ React Router
 Redux Thunk middleware
 NodeJS
 ExpressJS
+
+Published to: https://reactreduxrolodex.herokuapp.com/
