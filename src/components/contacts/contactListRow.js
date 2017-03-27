@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
-import ContactPage from './contactPage';
 
 const ContactListRow = ({contact}) => {
   return (

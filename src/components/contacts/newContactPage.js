@@ -13,13 +13,15 @@ class NewContactPage extends React.Component {
       contact: {
         first_name: '',
         last_name: '',
-        email: ''
+        email: '',
+        hobbies: []
       },
       saving: false
     };
 
     this.saveContact = this.saveContact.bind(this);
     this.updateContactState = this.updateContactState.bind(this);
+    this.updateContactHobbies = this.updateContactHobbies.bind(this);
   }
 
 
@@ -30,9 +32,25 @@ class NewContactPage extends React.Component {
     return this.setState({contact: contact});
   }
 
+  updateContactHobbies(event){
+	const contact = this.state.contact;
+	const hobbyTitle = event.target.value;
+	const hobby = this.props.checkBoxHobbies.filter(hobby => hobby.title === hobbyTitle)[0];
+	const checked = !hobby.checked;
+	hobby['checked'] = !hobby.checked;
+	if(checked){
+		contact.hobbies.push(hobby);
+	}
+	else{
+    contact.hobbies = contact.hobbies.filter(h => {
+      return h._id !== hobby._id;
+    });
+	}
+	this.setState({contact: contact});
+  }
+
   saveContact(event) {
     event.preventDefault();
-    console.log('Saving contact: ' + JSON.stringify(this.state.contact));
     this.props.actions.createContact(this.state.contact)
   }
 
@@ -42,20 +60,35 @@ class NewContactPage extends React.Component {
         <h4>New Contact</h4>
         <ContactForm
           contact={this.state.contact}
+          hobbies={this.props.checkBoxHobbies}
           onSave={this.saveContact}
-          onChange={this.updateContactState} />
+          onChange={this.updateContactState}
+          onHobbyChange={this.updateContactHobbies}  />
       </div>
     );
   }
 }
 
+function hobbiesForCheckBoxes(hobbies) {
+  return hobbies.map(hobby => {
+    hobby['checked'] = false;
+    return hobby;
+  });
+}
 
 NewContactPage.propTypes = {
+  checkBoxHobbies: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
+  let checkBoxHobbies = [];
+  if (state.hobbies.length > 0) {
+    checkBoxHobbies = hobbiesForCheckBoxes(Object.assign([], state.hobbies));
+  }
+
   return {
+    checkBoxHobbies: checkBoxHobbies
   };
 }
 

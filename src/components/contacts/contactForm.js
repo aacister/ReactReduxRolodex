@@ -1,8 +1,28 @@
 import React, {PropTypes} from 'react';
 import TextInput from '../common/TextInput';
+import CheckBox from '../common/CheckBox';
 
 class ContactForm extends React.Component {
+
+  constructor(props){
+	super(props);
+	this.makeCheckBoxes = this.makeCheckBoxes.bind(this);
+  }
+
+  makeCheckBoxes(){
+	return this.props.hobbies.map(hobby => {
+		return (
+			<CheckBox
+				item={hobby}
+				handleChange={this.props.onHobbyChange}
+        key={hobby.id}
+				 />
+		)
+	})
+  }
   render() {
+
+	const boxes = this.makeCheckBoxes();
     return (
       <div>
         <form>
@@ -24,6 +44,8 @@ class ContactForm extends React.Component {
             value={this.props.contact.email}
             onChange={this.props.onChange}/>
 
+	  {boxes}
+
           <input
             type="submit"
             disabled={this.props.saving}
@@ -36,9 +58,11 @@ class ContactForm extends React.Component {
 }
 
 ContactForm.propTypes = {
-  contact: React.PropTypes.object.isRequired,
-  onSave: React.PropTypes.func.isRequired,
-  onChange: React.PropTypes.func.isRequired
+  contact: PropTypes.object.isRequired,
+  hobbies: React.PropTypes.array.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onHobbyChange: PropTypes.func.isRequired
 };
 
 export default ContactForm;

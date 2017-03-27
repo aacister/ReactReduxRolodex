@@ -1,9 +1,8 @@
 import React, {PropTypes} from 'react';
-import {Link, browserHistory} from 'react-router';
+import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import ContactList from './contactList';
-import NewContactPage from './newContactPage';
 import * as actions from '../../actions/contactActions';
 
 class ContactsPage extends React.Component {
@@ -22,8 +21,7 @@ class ContactsPage extends React.Component {
   }
 
   componentWillMount() {
-    console.log('ComponentWillMount event: ' +JSON.stringify(this.props.contacts));
-    if (this.props.contacts[0].id == '') {
+    if (this.props.contacts[0].id === '') {
       this.props.actions.loadContacts();
 
     }
@@ -35,11 +33,9 @@ class ContactsPage extends React.Component {
         filteredContacts: this.filterContacts(nextProps.contacts)
       });
     }
-    console.log('ComponentWillReceiveProps event: ' + JSON.stringify(this.state.contacts));
   }
 
   filterContacts(contacts){
-    console.log('filterContacts event for state: ' + JSON.stringify(this.state.keyword));
     return contacts.filter((contact) =>{
       return contact.last_name.toLowerCase().search(this.state.keyword.toLowerCase()) !== -1;
     });
@@ -53,9 +49,6 @@ class ContactsPage extends React.Component {
       this.setState({filtering: false});
       return;
     }
-
-//    console.log('filterList event with props: ' + JSON.stringify(this.props.contacts));
-//    console.log('filterList event with state: ' + JSON.stringify(this.state.contacts));
 
     this.setState({
       filteredContacts: this.filterContacts(this.props.contacts),
@@ -84,12 +77,9 @@ class ContactsPage extends React.Component {
       margin: 15
     }
 
-
-    console.log('Rendering');
-    console.log('Rendering filteredContacts: ' + JSON.stringify(this.state.filteredContacts));
     let cs = this.state.filtering ? this.state.filteredContacts : this.props.contacts;
 
-    if (cs.length == 0) {
+    if (cs.length === 0) {
       return (
         <div class="container">
           <div className="row">
@@ -156,14 +146,13 @@ ContactsPage.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   if (state.contacts.length > 0) {
-    console.log('mapStateToProps event: ' +JSON.stringify(state.contacts));
     return {
       contacts: state.contacts
 
     };
   } else {
     return {
-      contacts: [{id: '', first_name: '', last_name: '', email: ''}]
+      contacts: [{_id: '', first_name: '', last_name: '', email: ''}]
     }
   }
 }

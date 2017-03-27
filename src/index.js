@@ -5,11 +5,13 @@ import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes';
 import {loadContacts} from './actions/contactActions';
+import { loadHobbies} from './actions/hobbyActions';
 
 
 const store = configureStore();
 
 store.dispatch(loadContacts());
+store.dispatch(loadHobbies());
 
 
 render(

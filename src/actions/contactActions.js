@@ -54,7 +54,6 @@ export function deleteContactSuccess(contact) {
 export function deleteContact(contact) {
   return function(dispatch) {
     return contactApi.deleteContact(contact).then(() => {
-      console.log(`Deleted ${contact._id}`)
       dispatch(deleteContactSuccess(contact));
       return;
     }).catch(error => {

@@ -12,7 +12,7 @@ const ContactList = ({contacts}) => {
       </thead>
       <tbody>
         {contacts.map(contact =>
-          <ContactListRow key={contact._id} contact={contact} />
+          <ContactListRow key={contact.id} contact={contact} />
         )}
       </tbody>
     </table>
